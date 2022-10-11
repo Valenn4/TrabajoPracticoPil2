@@ -1,8 +1,6 @@
 package Ejercicio;
 
 
-import java.util.HashMap;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -23,15 +21,13 @@ public class Main {
         epicDoubleHashMap.addT(3, new Dog());
 
         epicDoubleHashMap.addVandT(12, new Cat(), new Dog());
-        System.out.println(epicDoubleHashMap.getMap());
+        System.out.println(epicDoubleHashMap);
         epicDoubleHashMap.removeItem(1);
         epicDoubleHashMap.removeItem(2);
-        System.out.println(epicDoubleHashMap.getMap());
-        System.out.println(epicDoubleHashMap.getV(12));
-        System.out.println(epicDoubleHashMap.getV(3));
 
 
-
+        //System.out.println(epicDoubleHashMap.getMap().get(3)[0].getClass().isInstance(new Dog()));
+        System.out.println(epicDoubleHashMap.getMap().get(3)[0].getClass().getName());
 
 
 

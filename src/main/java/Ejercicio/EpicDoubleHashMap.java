@@ -3,6 +3,7 @@ package Ejercicio;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.security.KeyException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class EpicDoubleHashMap <K extends Number, V, T> {
@@ -48,12 +49,14 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             }
         } catch (KeyAlreadyExistsException e) {
             System.out.println("you can not add an object with the same key");
-
+        }
     }
     /*
     public V getV(Number key){
         try{
-            if (map.containsKey(key) && map.get(key)[0] instanceof V ){
+            if (map.containsKey(key)){
+                String clase = map.get(key)[0].getClass().getName();
+                if(clase.equals("Ejercicio."+Cat.class))
                 return map.get(key)[0];
             } else {
                 throw new Error("Can not get V");
@@ -63,11 +66,8 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         } finally {
             return null;
         }
-        }
     }
-   
-     */
-
+    */
     public void removeItem(Number key){
         try{
             if (!map.containsKey(key)){
@@ -81,4 +81,22 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         }
     }
 
+    @Override
+    public String toString() {
+
+        String aux = "EpicDoubleHashMap\n";
+
+        Iterator entries = map.entrySet().iterator();
+        while (entries.hasNext()) {
+            Map.Entry entry = (Map.Entry) entries.next();
+            Number key = (Number)entry.getKey();
+            Object[] value = (Object[])entry.getValue();
+            aux += "\nKey = " + key + ", Values = ";
+            for (Object el: value) {
+                aux += el + "\t";
+            }
+        }
+
+        return aux;
+    }
 }
