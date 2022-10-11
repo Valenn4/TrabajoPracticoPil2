@@ -2,11 +2,11 @@ package Ejercicio;
 
 import java.util.*;
 
-class EpicDoubleHashMap<K extends Number, V, T>{
+class TestEpicDoubleHashMap<K extends Number, V, T>{
 
     private Map<K, Object> map;
 
-    public EpicDoubleHashMap(){
+    public TestEpicDoubleHashMap(){
         this.map = new HashMap<>();
     }
 
