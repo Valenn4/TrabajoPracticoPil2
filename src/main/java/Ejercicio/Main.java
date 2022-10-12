@@ -21,13 +21,14 @@ public class Main {
         epicDoubleHashMap.addT(3, new Dog());
 
         epicDoubleHashMap.addVandT(12, new Cat(), new Dog());
+        epicDoubleHashMap.addTandV(14, new Dog(), new Cat());
+
         System.out.println(epicDoubleHashMap);
-        epicDoubleHashMap.removeItem(1);
-        epicDoubleHashMap.removeItem(2);
 
-
-        //System.out.println(epicDoubleHashMap.getMap().get(3)[0].getClass().isInstance(new Dog()));
-        System.out.println(epicDoubleHashMap.getMap().get(3)[0].getClass().getName());
+        epicDoubleHashMap.getT(1);
+        epicDoubleHashMap.getT(3);
+        epicDoubleHashMap.getT(12);
+        epicDoubleHashMap.getT(14);
 
 
 

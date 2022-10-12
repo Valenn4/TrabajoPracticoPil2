@@ -51,23 +51,71 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             System.out.println("you can not add an object with the same key");
         }
     }
-    /*
-    public V getV(Number key){
+
+    public void addTandV(Number key, T firstValue, V secondValue){
+        try {
+            if (map.containsKey(key)) {
+                throw new KeyAlreadyExistsException ("The key already exists");
+            } else {
+                map.put((K) key, new Object[]{firstValue, secondValue});
+            }
+        } catch (KeyAlreadyExistsException e) {
+            System.out.println("you can not add an object with the same key");
+        }
+    }
+
+    public void getV(Number key){
         try{
             if (map.containsKey(key)){
-                String clase = map.get(key)[0].getClass().getName();
-                if(clase.equals("Ejercicio."+Cat.class))
-                return map.get(key)[0];
+                if(map.get(key).length == 2){
+                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Cat")){
+                        System.out.println(map.get(key)[0]);
+                    }
+                    if(map.get(key)[1].getClass().getName().equals("Ejercicio.Cat")){
+                        System.out.println(map.get(key)[1]);
+                    }
+                }
+                else {
+                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Cat")){
+                        System.out.println(map.get(key)[0].toString());
+                    } else {
+                        System.out.println("The item has not a value of the class V");
+                    }
+                }
             } else {
                 throw new Error("Can not get V");
             }
         } catch (Error e){
             System.out.println(e);
-        } finally {
-            return null;
         }
     }
-    */
+    public void getT(Number key){
+        try{
+            if (map.containsKey(key)){
+                if(map.get(key).length == 2){
+                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Dog")){
+                        System.out.println(map.get(key)[0]);
+                    }
+                    if(map.get(key)[1].getClass().getName().equals("Ejercicio.Dog")){
+                        System.out.println(map.get(key)[1]);
+                    }
+                }
+                else {
+                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Dog")){
+                        System.out.println(map.get(key)[0].toString());
+                    } else {
+                        System.out.println("The item has not a value of the class T");
+                    }
+                }
+            }
+            else {
+                throw new Error("Can not get V");
+            }
+        } catch (Error e){
+            System.out.println(e);
+        }
+    }
+
     public void removeItem(Number key){
         try{
             if (!map.containsKey(key)){
