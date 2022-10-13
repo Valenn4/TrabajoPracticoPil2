@@ -23,15 +23,15 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     //getter
 
     //methods
-    public void addV(Number key, V value){
+    public void addFirstType(Number key, V value){
         mapV.put((K) key, value);
     }
 
-    public void addT(Number key, T value){
+    public void addSecondType(Number key, T value){
         mapT.put((K) key, value);
     }
 
-    public void addVandT(Number key,V valueV, T valueT){
+    public void addBothTypes(Number key,V valueV, T valueT){
         mapV.put((K) key, valueV);
         mapT.put((K) key, valueT);
     }
