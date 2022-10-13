@@ -24,16 +24,39 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
 
     //methods
     public void addFirstType(Number key, V value){
-        mapV.put((K) key, value);
+        try {
+            if(mapV.containsKey(key) || mapT.containsKey(key)){
+                throw new KeyException("The key already exists");
+            }
+            mapV.put((K) key, value);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
     }
 
     public void addSecondType(Number key, T value){
-        mapT.put((K) key, value);
+        try {
+            if(mapV.containsKey(key) || mapT.containsKey(key)){
+                throw new KeyException("The key already exists");
+            }
+            mapT.put((K) key, value);
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     public void addBothTypes(Number key,V valueV, T valueT){
-        mapV.put((K) key, valueV);
-        mapT.put((K) key, valueT);
+        try {
+            if(mapV.containsKey(key) || mapT.containsKey(key)){
+                throw new KeyException("The key already exists");
+            }
+            mapV.put((K) key, valueV);
+            mapT.put((K) key, valueT);
+
+        } catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     //toString

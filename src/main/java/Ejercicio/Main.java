@@ -16,19 +16,14 @@ public class Main {
 
         EpicDoubleHashMap<Number, Cat, Dog> epicDoubleHashMap = new EpicDoubleHashMap<>();
 
-        epicDoubleHashMap.addV(1, new Cat());
-        epicDoubleHashMap.addV(1, new Cat());
-        epicDoubleHashMap.addT(3, new Dog());
+        epicDoubleHashMap.addFirstType(1, new Cat());
+        epicDoubleHashMap.addFirstType(1, new Cat());
+        epicDoubleHashMap.addSecondType(3, new Dog());
 
-        epicDoubleHashMap.addVandT(12, new Cat(), new Dog());
-        epicDoubleHashMap.addTandV(14, new Dog(), new Cat());
+        epicDoubleHashMap.addBothTypes(12, new Cat(), new Dog());
 
         System.out.println(epicDoubleHashMap);
 
-        epicDoubleHashMap.getT(1);
-        epicDoubleHashMap.getT(3);
-        epicDoubleHashMap.getT(12);
-        epicDoubleHashMap.getT(14);
 
 
 
