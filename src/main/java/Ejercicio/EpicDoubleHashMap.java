@@ -9,142 +9,33 @@ import java.util.Map;
 public class EpicDoubleHashMap <K extends Number, V, T> {
 
     //attributes
-    private Map<K,Object[]> map;
+    private Map<K,V> mapV;
+    private Map<K,T> mapT;
 
     //constructor
+
+
     public EpicDoubleHashMap() {
-        this.map = new HashMap<>();
+        this.mapV = new HashMap<>();
+        this.mapT = new HashMap<>();
     }
 
     //getter
-    public Map<K, Object[]> getMap() {
-        return map;
-    }
 
     //methods
     public void addV(Number key, V value){
-        try {
-            if (map.containsKey(key)) throw new KeyAlreadyExistsException ("The key already exists");
-            map.put((K) key, new Object[]{value});
-        } catch (KeyAlreadyExistsException e) {
-            System.out.println(e);
-        }
+        mapV.put((K) key, value);
     }
 
     public void addT(Number key, T value){
-        try {
-            if (map.containsKey(key)) throw new KeyAlreadyExistsException ("The key already exists");
-            map.put((K) key, new Object[]{value});
-        } catch (KeyAlreadyExistsException e) {
-            System.out.println(e);
-        }
+        mapT.put((K) key, value);
     }
 
-    public void addVandT(Number key, V firstValue, T secondValue){
-        try {
-            if (map.containsKey(key)) {
-                throw new KeyAlreadyExistsException ("The key already exists");
-            } else {
-                map.put((K) key, new Object[]{firstValue, secondValue});
-            }
-        } catch (KeyAlreadyExistsException e) {
-            System.out.println("you can not add an object with the same key");
-        }
+    public void addVandT(Number key,V valueV, T valueT){
+        mapV.put((K) key, valueV);
+        mapT.put((K) key, valueT);
     }
 
-    public void addTandV(Number key, T firstValue, V secondValue){
-        try {
-            if (map.containsKey(key)) {
-                throw new KeyAlreadyExistsException ("The key already exists");
-            } else {
-                map.put((K) key, new Object[]{firstValue, secondValue});
-            }
-        } catch (KeyAlreadyExistsException e) {
-            System.out.println("you can not add an object with the same key");
-        }
-    }
+    //toString
 
-    public void getV(Number key){
-        try{
-            if (map.containsKey(key)){
-                if(map.get(key).length == 2){
-                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Cat")){
-                        System.out.println(map.get(key)[0]);
-                    }
-                    if(map.get(key)[1].getClass().getName().equals("Ejercicio.Cat")){
-                        System.out.println(map.get(key)[1]);
-                    }
-                }
-                else {
-                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Cat")){
-                        System.out.println(map.get(key)[0].toString());
-                    } else {
-                        System.out.println("The item has not a value of the class V");
-                    }
-                }
-            } else {
-                throw new Error("Can not get V");
-            }
-        } catch (Error e){
-            System.out.println(e);
-        }
-    }
-    public void getT(Number key){
-        try{
-            if (map.containsKey(key)){
-                if(map.get(key).length == 2){
-                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Dog")){
-                        System.out.println(map.get(key)[0]);
-                    }
-                    if(map.get(key)[1].getClass().getName().equals("Ejercicio.Dog")){
-                        System.out.println(map.get(key)[1]);
-                    }
-                }
-                else {
-                    if(map.get(key)[0].getClass().getName().equals("Ejercicio.Dog")){
-                        System.out.println(map.get(key)[0].toString());
-                    } else {
-                        System.out.println("The item has not a value of the class T");
-                    }
-                }
-            }
-            else {
-                throw new Error("Can not get V");
-            }
-        } catch (Error e){
-            System.out.println(e);
-        }
-    }
-
-    public void removeItem(Number key){
-        try{
-            if (!map.containsKey(key)){
-                throw new KeyException("Key does not exists");
-            } else {
-                map.remove(key);
-            }
-        }
-        catch (KeyException e) {
-            System.out.println(e);
-        }
-    }
-
-    @Override
-    public String toString() {
-
-        String aux = "EpicDoubleHashMap\n";
-
-        Iterator entries = map.entrySet().iterator();
-        while (entries.hasNext()) {
-            Map.Entry entry = (Map.Entry) entries.next();
-            Number key = (Number)entry.getKey();
-            Object[] value = (Object[])entry.getValue();
-            aux += "\nKey = " + key + ", Values = ";
-            for (Object el: value) {
-                aux += el + "\t";
-            }
-        }
-
-        return aux;
-    }
 }
