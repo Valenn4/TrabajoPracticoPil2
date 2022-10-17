@@ -14,8 +14,8 @@ public class Main {
 
          */
 
-        EpicDoubleHashMap<Number, Cat, Dog> epicDoubleHashMap = new EpicDoubleHashMap<>();
-
+        EpicDoubleHashMap<Number, Integer, String> epicDoubleHashMap = new EpicDoubleHashMap<>();
+        /*
         epicDoubleHashMap.addFirstType(1, new Cat());
         epicDoubleHashMap.addFirstType(1, new Cat());
         epicDoubleHashMap.addSecondType(3, new Dog());
@@ -25,7 +25,20 @@ public class Main {
         System.out.println(epicDoubleHashMap);
 
 
+        System.out.println(epicDoubleHashMap.getFirstType(12));
+        System.out.println(epicDoubleHashMap);*/
 
+        epicDoubleHashMap.addBothTypes(1, 23, "asdada");
+        epicDoubleHashMap.addBothTypes(3, 23, "asdada");
+        epicDoubleHashMap.addBothTypes(4, 23, "asdada");
+        epicDoubleHashMap.addBothTypes(6, 23, "asdada");
+        epicDoubleHashMap.addFirstType(9,454);
+        epicDoubleHashMap.addFirstType(92,454);
+        epicDoubleHashMap.addFirstType(93,454);
 
+        System.out.println();
+        System.out.println(epicDoubleHashMap);
+        System.out.println(epicDoubleHashMap.moreRepetitions());
+        System.out.println(epicDoubleHashMap.howManyFromAKey(4));
     }
 }
