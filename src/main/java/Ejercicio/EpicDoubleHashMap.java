@@ -3,10 +3,7 @@ package Ejercicio;
 import javax.management.InvalidAttributeValueException;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import java.security.KeyException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class EpicDoubleHashMap <K extends Number, V, T> {
 
@@ -191,6 +188,33 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             count = howManySecondType(key);
         }
         return count;
+    }
+
+    public boolean valuesRepeat(){
+        List<Object> valuesList = new ArrayList<>();
+        Set<Object> valuesSet = new HashSet<>();
+
+        for(Map.Entry<K, V> entry : mapV.entrySet()) {
+            if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey())){
+                String value = "{" + entry.getValue().toString() + "," + mapT.get(entry.getKey()) + "}";
+                valuesList.add(value);
+                valuesSet.add(value);
+            } else if(mapV.containsKey(entry.getKey()) && !mapT.containsKey(entry.getKey())){
+                String value = "{" + entry.getValue().toString() + "}";
+                valuesList.add(value);
+                valuesSet.add(value);
+            } else if(!mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey())){
+                String value = "{" + mapT.get(entry.getKey()) + "}";
+                valuesList.add(value);
+                valuesSet.add(value);
+            }
+        }
+
+        if(valuesList.size() != valuesSet.size()){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //toString

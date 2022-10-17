@@ -28,17 +28,16 @@ public class Main {
         System.out.println(epicDoubleHashMap.getFirstType(12));
         System.out.println(epicDoubleHashMap);*/
 
-        epicDoubleHashMap.addBothTypes(1, 23, "asdada");
-        epicDoubleHashMap.addBothTypes(3, 23, "asdada");
-        epicDoubleHashMap.addBothTypes(4, 23, "asdada");
-        epicDoubleHashMap.addBothTypes(6, 23, "asdada");
+        epicDoubleHashMap.addBothTypes(1, 23, "8445");
+        epicDoubleHashMap.addBothTypes(4, 23, "8445");
         epicDoubleHashMap.addFirstType(9,454);
-        epicDoubleHashMap.addFirstType(92,454);
-        epicDoubleHashMap.addFirstType(93,454);
+        epicDoubleHashMap.addFirstType(92,23);
 
         System.out.println();
         System.out.println(epicDoubleHashMap);
         System.out.println(epicDoubleHashMap.moreRepetitions());
         System.out.println(epicDoubleHashMap.howManyFromAKey(4));
+
+        System.out.println(epicDoubleHashMap.valuesRepeat());
     }
 }
