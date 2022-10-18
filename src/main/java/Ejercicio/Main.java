@@ -39,5 +39,13 @@ public class Main {
         System.out.println(epicDoubleHashMap.howManyFromAKey(4));
 
         System.out.println(epicDoubleHashMap.valuesRepeat());
+
+        EpicDoubleHashMap<Number, Integer, String> epicDoubleHashMap1 = new EpicDoubleHashMap<>();
+        EpicDoubleHashMap<Number, Integer, String> epicDoubleHashMap2 = new EpicDoubleHashMap<>();
+
+        epicDoubleHashMap1.addFirstType(1 ,1);
+        epicDoubleHashMap2.addFirstType(1, 1);
+        System.out.println(epicDoubleHashMap1.equals(epicDoubleHashMap2));
+        System.out.println(epicDoubleHashMap.equals(epicDoubleHashMap1));
     }
 }

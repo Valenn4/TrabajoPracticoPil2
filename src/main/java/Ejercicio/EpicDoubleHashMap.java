@@ -21,6 +21,14 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
 
     //getter
 
+    public Map<K, V> getMapV() {
+        return mapV;
+    }
+
+    public Map<K, T> getMapT() {
+        return mapT;
+    }
+
     //methods
     public void addFirstType(Number key, V value){
         try {
@@ -215,6 +223,10 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         } else {
             return false;
         }
+    }
+    
+    public boolean equals(EpicDoubleHashMap epicDoubleHashMap){
+        return this.mapT.equals(epicDoubleHashMap.getMapT()) && mapV.equals(epicDoubleHashMap.getMapV());
     }
 
     //toString
