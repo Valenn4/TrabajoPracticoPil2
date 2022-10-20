@@ -1,4 +1,4 @@
-package Ejercicio;
+package exercise;
 
 import javax.management.InvalidAttributeValueException;
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -12,15 +12,12 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     private Map<K,T> mapT;
 
     //constructor
-
-
     public EpicDoubleHashMap() {
         this.mapV = new HashMap<>();
         this.mapT = new HashMap<>();
     }
 
-    //getter
-
+    //getters
     public Map<K, V> getMapV() {
         return mapV;
     }
@@ -30,6 +27,8 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     }
 
     //methods
+
+    //in add methods we can not do overwrite because we do not know the type of V and T
     public void addFirstType(Number key, V value){
         try {
             if(mapV.containsKey(key) || mapT.containsKey(key)){
@@ -37,14 +36,14 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             }else {
                 int count = 0;
                 for(Map.Entry<K, V> entry : mapV.entrySet()) {
-                    if (entry.getValue() == value){
+                    if (entry.getValue().equals(value)){
                         count ++;
                     }
                 }
                 if (count <= 2){
                     mapV.put((K) key, value);
                 }else {
-                    throw new InvalidAttributeValueException("Invalidad Value");
+                    throw new InvalidAttributeValueException("Value is already 3 times");
                 }
             }
         } catch (Exception e){
@@ -57,10 +56,16 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             if(mapT.containsKey(key) || mapV.containsKey(key)){
                 throw new KeyAlreadyExistsException("The key already exists");
             }else {
-                if (howManySecondType((Number) value) <= 2){
+                int count = 0;
+                for(Map.Entry<K, T> entry : mapT.entrySet()) {
+                    if (entry.getValue().equals(value)){
+                        count ++;
+                    }
+                }
+                if (count <= 2){
                     mapT.put((K) key, value);
                 }else {
-                    throw new InvalidAttributeValueException("Invalidad Value");
+                    throw new InvalidAttributeValueException("Value is already 3 times");
                 }
             }
         } catch (Exception e){
@@ -75,17 +80,16 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             }else {
                 int count = 0;
                 for(Map.Entry<K, V> entry : mapV.entrySet()) {
-                    if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey())){
-                        if (entry.getValue().equals(valueV) && mapT.get(entry.getKey()).equals(valueT)){
-                            count ++;
-                        }
+                    if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey()) &&
+                            entry.getValue().equals(valueV) && mapT.get(entry.getKey()).equals(valueT)){
+                        count ++;
                     }
                 }
                 if (count <= 2){
                     mapV.put((K) key, valueV);
                     mapT.put((K) key, valueT);
                 }else {
-                    throw new InvalidAttributeValueException("Invalidad Value");
+                    throw new InvalidAttributeValueException("Values are already 3 times");
                 }
             }
         } catch (Exception e){
@@ -98,7 +102,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             if (mapV.containsKey(key)){
                 return mapV.get(key);
             } else {
-                throw new KeyException("Map does not contain the key");
+                throw new KeyException("Map does not contain the key or is in another value");
             }
         } catch (Exception e){
             System.out.println(e);
@@ -111,7 +115,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             if (mapT.containsKey(key)){
                 return mapT.get(key);
             } else {
-                throw new KeyException("Map does not contain the key");
+                throw new KeyException("Map does not contain the key or is in another value");
             }
         } catch (Exception e){
             System.out.println(e);
@@ -119,26 +123,19 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return null;
     }
 
-    public void removeFirstType(Number key){
+    public void remove(Number key){
         try {
-            if (mapV.containsKey(key)){
+            if (mapV.containsKey(key) && mapT.containsKey(key)){
                 mapV.remove(key);
+                mapT.remove(key);
+            } else if (mapV.containsKey(key)){
+                mapV.remove(key);
+            } else if (mapT.containsKey(key)){
+                mapT.remove(key);
             } else {
                 throw new KeyException("Map does not contain the key");
             }
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
-    }
-    public void removeSecondType(Number key){
-        try {
-            if (mapT.containsKey(key)){
-                mapT.remove(key);
-            } else {
-                throw new KeyException("Map does not cotain the key");
-            }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
@@ -152,7 +149,6 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             return "There are same objects of both types";
         }
     }
-
 
     private int howManyFirstType(Number key){
         int count = 0;
@@ -186,7 +182,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return count;
     }
 
-    public int howManyFromAKey(Number key){
+    public int howManyRepeatedFromAKey(Number key){
         int count = 0;
         if (mapV.containsKey(key) && mapT.containsKey(key)){
             count = howManyBothTypes(key);
@@ -198,31 +194,28 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return count;
     }
 
-    public boolean valuesRepeat(){
+    public boolean valuesRepeated(){
         List<Object> valuesList = new ArrayList<>();
         Set<Object> valuesSet = new HashSet<>();
+        String value;
 
         for(Map.Entry<K, V> entry : mapV.entrySet()) {
             if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey())){
-                String value = "{" + entry.getValue().toString() + "," + mapT.get(entry.getKey()) + "}";
+                value = "{" + entry.getValue().toString() + "," + mapT.get(entry.getKey()) + "}";
                 valuesList.add(value);
                 valuesSet.add(value);
             } else if(mapV.containsKey(entry.getKey()) && !mapT.containsKey(entry.getKey())){
-                String value = "{" + entry.getValue().toString() + "}";
+                value = "{" + entry.getValue().toString() + "}";
                 valuesList.add(value);
                 valuesSet.add(value);
             } else if(!mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey())){
-                String value = "{" + mapT.get(entry.getKey()) + "}";
+                value = "{" + mapT.get(entry.getKey()) + "}";
                 valuesList.add(value);
                 valuesSet.add(value);
             }
         }
 
-        if(valuesList.size() != valuesSet.size()){
-            return true;
-        } else {
-            return false;
-        }
+        return valuesList.size() != valuesSet.size();
     }
     
     public boolean equals(EpicDoubleHashMap epicDoubleHashMap){
@@ -232,7 +225,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     //toString
     @Override
     public String toString() {
-        return "EpicDoubleHashMap{" +
+        return "Values{" +
                 "mapV=" + mapV +
                 ", mapT=" + mapT +
                 '}';
