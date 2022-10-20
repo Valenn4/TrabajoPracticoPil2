@@ -73,8 +73,6 @@ public class MainWithGenericClasses {
         epicDoubleHashMap.addSecondType(50, "50");
         System.out.println(epicDoubleHashMap.moreRepetitions());
         epicDoubleHashMap.remove(50);
-        //equals
-        System.out.println(epicDoubleHashMap.equals(epicDoubleHashMap1));
         //howManyRepeatedFromAKey
         epicDoubleHashMap2.addFirstType(40, 40);
         epicDoubleHashMap2.addFirstType(41, 40);

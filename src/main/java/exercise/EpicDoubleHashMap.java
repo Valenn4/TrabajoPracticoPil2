@@ -28,19 +28,45 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
 
     //methods
 
+    public int howManyFirstType(V value){
+        int count = 0;
+        for(Map.Entry<K, V> entry : mapV.entrySet()) {
+            if (entry.getValue().equals(value) && !mapT.containsKey(entry.getKey())){
+                count ++;
+            }
+        }
+        return count;
+    }
+
+    public int howManySecondType(T value){
+        int count = 0;
+        for(Map.Entry<K, T> entry : mapT.entrySet()) {
+            if (entry.getValue().equals(value) && !mapV.containsKey(entry.getKey())){
+                count ++;
+            }
+        }
+        return count;
+    }
+
+    public int howManyBothTypes(V valueV, T valueT){
+        int count = 0;
+        for(Map.Entry<K, V> entry : mapV.entrySet()) {
+            if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey()) &&
+                    entry.getValue().equals(valueV) && mapT.get(entry.getKey()).equals(valueT)){
+                count ++;
+            }
+        }
+
+        return count;
+    }
+
     //in add methods we can not do overwrite because we do not know the type of V and T
-    public void addFirstType(Number key, V value){
+    public void addFirstType(K key, V value){
         try {
             if(mapV.containsKey(key) || mapT.containsKey(key)){
                 throw new KeyAlreadyExistsException("The key already exists");
             }else {
-                int count = 0;
-                for(Map.Entry<K, V> entry : mapV.entrySet()) {
-                    if (entry.getValue().equals(value)){
-                        count ++;
-                    }
-                }
-                if (count <= 2){
+                if (howManyFirstType(value) <= 2){
                     mapV.put((K) key, value);
                 }else {
                     throw new InvalidAttributeValueException("Value is already 3 times");
@@ -51,18 +77,12 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         }
     }
 
-    public void addSecondType(Number key, T value){
+    public void addSecondType(K key, T value){
         try {
             if(mapT.containsKey(key) || mapV.containsKey(key)){
                 throw new KeyAlreadyExistsException("The key already exists");
             }else {
-                int count = 0;
-                for(Map.Entry<K, T> entry : mapT.entrySet()) {
-                    if (entry.getValue().equals(value)){
-                        count ++;
-                    }
-                }
-                if (count <= 2){
+                if (howManySecondType(value) <= 2){
                     mapT.put((K) key, value);
                 }else {
                     throw new InvalidAttributeValueException("Value is already 3 times");
@@ -73,19 +93,12 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         }
     }
 
-    public void addBothTypes(Number key,V valueV, T valueT){
+    public void addBothTypes(K key,V valueV, T valueT){
         try {
             if(mapT.containsKey(key) || mapV.containsKey(key)){
                 throw new KeyAlreadyExistsException("The key already exists");
             }else {
-                int count = 0;
-                for(Map.Entry<K, V> entry : mapV.entrySet()) {
-                    if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey()) &&
-                            entry.getValue().equals(valueV) && mapT.get(entry.getKey()).equals(valueT)){
-                        count ++;
-                    }
-                }
-                if (count <= 2){
+                if (howManyBothTypes(valueV, valueT) <= 2){
                     mapV.put((K) key, valueV);
                     mapT.put((K) key, valueT);
                 }else {
@@ -97,7 +110,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         }
     }
 
-    public V getFirstType(Number key){
+    public V getFirstType(K key){
         try {
             if (mapV.containsKey(key)){
                 return mapV.get(key);
@@ -110,7 +123,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return null;
     }
 
-    public T getSecondType(Number key){
+    public T getSecondType(K key){
         try {
             if (mapT.containsKey(key)){
                 return mapT.get(key);
@@ -123,7 +136,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return null;
     }
 
-    public void remove(Number key){
+    public void remove(K key){
         try {
             if (mapV.containsKey(key) && mapT.containsKey(key)){
                 mapV.remove(key);
@@ -150,46 +163,32 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         }
     }
 
-    private int howManyFirstType(Number key){
+    public int howManyRepeatedFromAKey(K key){
+        Set<K> keysVAndT = mapT.keySet();
+        keysVAndT.retainAll(mapV.keySet());
         int count = 0;
-        for(Map.Entry<K, V> entry : mapV.entrySet()) {
-            if (entry.getValue().equals(mapV.get(key))){
-                count ++;
-            }
-        }
-        return count;
-    }
-
-    private int howManySecondType(Number key){
-        int count = 0;
-        for(Map.Entry<K, T> entry : mapT.entrySet()) {
-            if (entry.getValue().equals(mapT.get(key))){
-                count ++;
-            }
-        }
-        return count;
-    }
-
-    private int howManyBothTypes(Number key){
-        int count = 0;
-        for(Map.Entry<K, V> entry : mapV.entrySet()) {
-            if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey())){
-                if (entry.getValue().equals(mapV.get(key)) && mapT.get(entry.getKey()).equals(mapT.get(key))){
-                    count ++;
+        if(mapV.containsKey(key) && mapT.containsKey(key)){
+            for(K element:keysVAndT){
+                if(mapV.get(element).equals(mapV.get(key)) && mapT.get(element).equals(mapT.get(key))){
+                    count++;
                 }
             }
-        }
-        return count;
-    }
-
-    public int howManyRepeatedFromAKey(Number key){
-        int count = 0;
-        if (mapV.containsKey(key) && mapT.containsKey(key)){
-            count = howManyBothTypes(key);
-        }else if (mapV.containsKey(key) && !mapT.containsKey(key)){
-            count = howManyFirstType(key);
+        } else if (mapV.containsKey(key) && !mapT.containsKey(key)){
+            for(K element:mapV.keySet()) {
+                if (mapV.containsKey(element) && !mapT.containsKey(element)) {
+                    if (mapV.get(key).equals(mapV.get(element))) {
+                        count++;
+                    }
+                }
+            }
         } else if (mapT.containsKey(key) && !mapV.containsKey(key)){
-            count = howManySecondType(key);
+            for(K element:mapT.keySet()) {
+                 if (mapT.containsKey(element) && !mapV.containsKey(element)) {
+                    if (mapT.get(key).equals(mapT.get(element))) {
+                        count++;
+                    }
+                }
+            }
         }
         return count;
     }
@@ -217,10 +216,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
 
         return valuesList.size() != valuesSet.size();
     }
-    
-    public boolean equals(EpicDoubleHashMap epicDoubleHashMap){
-        return this.mapT.equals(epicDoubleHashMap.getMapT()) && mapV.equals(epicDoubleHashMap.getMapV());
-    }
+
 
     //toString
     @Override
