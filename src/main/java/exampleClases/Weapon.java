@@ -14,4 +14,11 @@ public class Weapon {
     public boolean equals(Weapon weapon) {
         return this.ammo == weapon.getAmmo();
     }
+
+    @Override
+    public String toString() {
+        return "Weapon{" +
+                "ammo=" + ammo +
+                '}';
+    }
 }

@@ -1,7 +1,9 @@
-package exercise;
+package main;
 
 
-public class MainWithGenericClasses {
+import epicDoubleHashMap.EpicDoubleHashMap;
+
+public class MainWithPrimitiveClasses {
 
     public static void main(String[] args) {
 

@@ -1,4 +1,4 @@
-package exercise;
+package epicDoubleHashMap;
 
 import javax.management.InvalidAttributeValueException;
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -8,23 +8,8 @@ import java.util.*;
 public class EpicDoubleHashMap <K extends Number, V, T> {
 
     //attributes
-    private Map<K,V> mapV;
-    private Map<K,T> mapT;
-
-    //constructor
-    public EpicDoubleHashMap() {
-        this.mapV = new HashMap<>();
-        this.mapT = new HashMap<>();
-    }
-
-    //getters
-    public Map<K, V> getMapV() {
-        return mapV;
-    }
-
-    public Map<K, T> getMapT() {
-        return mapT;
-    }
+    private Map<K,V> mapV = new HashMap<>();
+    private Map<K,T> mapT = new HashMap<>();
 
     //methods
 
@@ -56,7 +41,6 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
                 count ++;
             }
         }
-
         return count;
     }
 
@@ -64,12 +48,12 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     public void addFirstType(K key, V value){
         try {
             if(mapV.containsKey(key) || mapT.containsKey(key)){
-                throw new KeyAlreadyExistsException("The key already exists");
+                throw new KeyAlreadyExistsException("The key " + key + " already exists");
             }else {
                 if (howManyFirstType(value) <= 2){
-                    mapV.put((K) key, value);
+                    mapV.put(key, value);
                 }else {
-                    throw new InvalidAttributeValueException("Value is already 3 times");
+                    throw new InvalidAttributeValueException("Value " + value + " is already 3 times");
                 }
             }
         } catch (Exception e){
@@ -80,10 +64,10 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     public void addSecondType(K key, T value){
         try {
             if(mapT.containsKey(key) || mapV.containsKey(key)){
-                throw new KeyAlreadyExistsException("The key already exists");
+                throw new KeyAlreadyExistsException("The key " + key + " already exists");
             }else {
                 if (howManySecondType(value) <= 2){
-                    mapT.put((K) key, value);
+                    mapT.put(key, value);
                 }else {
                     throw new InvalidAttributeValueException("Value is already 3 times");
                 }
@@ -96,11 +80,11 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     public void addBothTypes(K key,V valueV, T valueT){
         try {
             if(mapT.containsKey(key) || mapV.containsKey(key)){
-                throw new KeyAlreadyExistsException("The key already exists");
+                throw new KeyAlreadyExistsException("The key " + key + " already exists");
             }else {
                 if (howManyBothTypes(valueV, valueT) <= 2){
-                    mapV.put((K) key, valueV);
-                    mapT.put((K) key, valueT);
+                    mapV.put(key, valueV);
+                    mapT.put(key, valueT);
                 }else {
                     throw new InvalidAttributeValueException("Values are already 3 times");
                 }
@@ -115,9 +99,9 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             if (mapV.containsKey(key)){
                 return mapV.get(key);
             } else {
-                throw new KeyException("Map does not contain the key or is in another value");
+                throw new KeyException("Map does not contain the key " +  key + " or is in in T value");
             }
-        } catch (Exception e){
+        } catch (KeyException e){
             System.out.println(e);
         }
         return null;
@@ -128,9 +112,9 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             if (mapT.containsKey(key)){
                 return mapT.get(key);
             } else {
-                throw new KeyException("Map does not contain the key or is in another value");
+                throw new KeyException("Map does not contain the key " +  key + " or is in V value");
             }
-        } catch (Exception e){
+        } catch (KeyException e){
             System.out.println(e);
         }
         return null;
@@ -146,7 +130,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
             } else if (mapT.containsKey(key)){
                 mapT.remove(key);
             } else {
-                throw new KeyException("Map does not contain the key");
+                throw new KeyException("Map does not contain the key " + key);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -169,24 +153,20 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         int count = 0;
         if(mapV.containsKey(key) && mapT.containsKey(key)){
             for(K element:keysVAndT){
-                if(mapV.get(element).equals(mapV.get(key)) && mapT.get(element).equals(mapT.get(key))){
-                    count++;
-                }
+                if(mapV.get(element).equals(mapV.get(key)) && mapT.get(element).equals(mapT.get(key))){ count++;}
             }
         } else if (mapV.containsKey(key) && !mapT.containsKey(key)){
             for(K element:mapV.keySet()) {
-                if (mapV.containsKey(element) && !mapT.containsKey(element)) {
-                    if (mapV.get(key).equals(mapV.get(element))) {
+                if (mapV.containsKey(element) && !mapT.containsKey(element) &&
+                        mapV.get(key).equals(mapV.get(element))) {
                         count++;
-                    }
                 }
             }
         } else if (mapT.containsKey(key) && !mapV.containsKey(key)){
             for(K element:mapT.keySet()) {
-                 if (mapT.containsKey(element) && !mapV.containsKey(element)) {
-                    if (mapT.get(key).equals(mapT.get(element))) {
+                 if (mapT.containsKey(element) && !mapV.containsKey(element) &&
+                         mapT.get(key).equals(mapT.get(element))) {
                         count++;
-                    }
                 }
             }
         }
@@ -213,7 +193,6 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
                 valuesSet.add(value);
             }
         }
-
         return valuesList.size() != valuesSet.size();
     }
 
