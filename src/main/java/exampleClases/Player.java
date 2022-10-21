@@ -14,4 +14,11 @@ public class Player {
     public boolean equals(Player player){
         return  this.name.equals(player.getName());
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
