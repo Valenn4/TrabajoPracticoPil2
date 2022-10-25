@@ -1,5 +1,7 @@
 package exampleClases;
 
+import java.util.Objects;
+
 public class Player {
     private String name;
 
@@ -11,8 +13,11 @@ public class Player {
         return name;
     }
 
-    public boolean equals(Player player){
-        return  this.name.equals(player.getName());
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player player)) return false;
+        return Objects.equals(getName(), player.getName());
     }
 
     @Override

@@ -1,5 +1,7 @@
 package exampleClases;
 
+import java.util.Objects;
+
 public class Weapon {
     private int ammo;
 
@@ -11,8 +13,11 @@ public class Weapon {
         return ammo;
     }
 
-    public boolean equals(Weapon weapon) {
-        return this.ammo == weapon.getAmmo();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Weapon weapon)) return false;
+        return getAmmo() == weapon.getAmmo();
     }
 
     @Override

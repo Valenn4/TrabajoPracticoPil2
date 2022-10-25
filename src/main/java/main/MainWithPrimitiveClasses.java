@@ -27,6 +27,7 @@ public class MainWithPrimitiveClasses {
         epicDoubleHashMap2.addBothTypes(3, 5, "Paredes");
 
         //show added items
+        System.out.println("Show added items");
         System.out.println("epicDoubleHashMap: " + epicDoubleHashMap);
         System.out.println("epicDoubleHashMap1: " + epicDoubleHashMap1);
         System.out.println("epicDoubleHashMap2: " + epicDoubleHashMap2);
@@ -44,11 +45,13 @@ public class MainWithPrimitiveClasses {
                 epicDoubleHashMap2.getSecondType(3));
 
         //remove
+        System.out.println("Remove Key 1 and Key 3 from epicDoubleHashMap2");
         epicDoubleHashMap2.remove(1);
         epicDoubleHashMap2.remove(3);
         System.out.println("epicDoubleHashMap2: " + epicDoubleHashMap2);
 
         //exceptions
+        System.out.println("\nExceptions");
         //add an item with an existing key
         epicDoubleHashMap.addFirstType(1, 10);
         epicDoubleHashMap.addSecondType(1, "Ten");
@@ -67,27 +70,35 @@ public class MainWithPrimitiveClasses {
         epicDoubleHashMap.getSecondType(200);
 
         //auxiliary methods
+        System.out.println("\nAuxiliary methods");
         //more repetitions
+        System.out.println(epicDoubleHashMap);
         System.out.println(epicDoubleHashMap.moreRepetitions());
         epicDoubleHashMap.addFirstType(50, 50);
+        System.out.println(epicDoubleHashMap);
         System.out.println(epicDoubleHashMap.moreRepetitions());
         epicDoubleHashMap.remove(50);
         epicDoubleHashMap.addSecondType(50, "50");
+        System.out.println(epicDoubleHashMap);
         System.out.println(epicDoubleHashMap.moreRepetitions());
         epicDoubleHashMap.remove(50);
         //howManyRepeatedFromAKey
         epicDoubleHashMap2.addFirstType(40, 40);
         epicDoubleHashMap2.addFirstType(41, 40);
         epicDoubleHashMap2.addFirstType(42, 40);
-        System.out.println(epicDoubleHashMap2.howManyRepeatedFromAKey(40));
+        System.out.println("Items repeated from key 40: " + epicDoubleHashMap2.howManyRepeatedFromAKey(40));
         epicDoubleHashMap2.addBothTypes(70, 7, "Seven");
         epicDoubleHashMap2.addBothTypes(71, 7, "Seven");
-        epicDoubleHashMap2.addBothTypes(72, 7, "Seven");
-        System.out.println(epicDoubleHashMap2.howManyRepeatedFromAKey(70));
+        System.out.println("Items repeated from key 70: " + epicDoubleHashMap2.howManyRepeatedFromAKey(70));
+        System.out.println(epicDoubleHashMap2);
         //values repeated
-        System.out.println(epicDoubleHashMap.valuesRepeated());
+        System.out.println(epicDoubleHashMap);
+        System.out.println(epicDoubleHashMap.valuesRepeated() ? "There are values repeated" :
+                "There are not values repeated");
         epicDoubleHashMap.addFirstType(12, 1);
-        System.out.println(epicDoubleHashMap.valuesRepeated());
+        System.out.println(epicDoubleHashMap);
+        System.out.println(epicDoubleHashMap.valuesRepeated() ? "There are values repeated" :
+                "There are not values repeated");
 
     }
 }

@@ -51,7 +51,7 @@ public class Main {
                 epicDoubleHashMap2.getSecondType((byte) 1));
 
         //remove
-        System.out.println("\nRemove items with Key");
+        System.out.println("Remove items with Key");
         epicDoubleHashMap.remove(1);
         epicDoubleHashMap1.remove(2.0f);
         epicDoubleHashMap2.remove((byte) 3);
@@ -74,15 +74,15 @@ public class Main {
         epicDoubleHashMap.addFirstType(100,new Player("Hello"));
         epicDoubleHashMap.addFirstType(200,new Player("Hello"));
         epicDoubleHashMap.addFirstType(300,new Player("Hello"));
-        epicDoubleHashMap.addFirstType(400,new Player("Hello"));
-        Player p1 = new Player("Hello");
-        Player p2 = new Player("Hello");
-        System.out.println(p1.equals(p2));
+        epicDoubleHashMap.addBothTypes(400, new Player("Hello"), new Weapon(15));
+        epicDoubleHashMap.addFirstType(500,new Player("Hello"));
+        System.out.println(epicDoubleHashMap);
         //get a missing key
         System.out.println("Get a missing key");
         epicDoubleHashMap.getFirstType(101);
 
         //auxiliary methods
+        System.out.println("\nAuxiliary methods");
         EpicDoubleHashMap<Integer, Player, Weapon> epicDoubleHashMap3 = new EpicDoubleHashMap<>();
         //more repetitions
         System.out.println("More repetitions");
@@ -96,13 +96,16 @@ public class Main {
         //howManyRepeatedFromAKey
         epicDoubleHashMap3.addFirstType(40, new Player("Player2"));
         epicDoubleHashMap3.addFirstType(41, new Player("Player2"));
-        epicDoubleHashMap3.addFirstType(42, new Player("Player2"));
-        System.out.println(epicDoubleHashMap3.howManyRepeatedFromAKey(40));
+        epicDoubleHashMap3.addBothTypes(42, new Player("Player2"), new Weapon(5));
+        System.out.println("Values repeated from key 40: " + epicDoubleHashMap3.howManyRepeatedFromAKey(40));
         epicDoubleHashMap3.addBothTypes(70, new Player("Player3"), new Weapon(1));
         epicDoubleHashMap3.addBothTypes(71, new Player("Player3"), new Weapon(1));
-        epicDoubleHashMap3.addBothTypes(72, new Player("Player3"), new Weapon(1));
-        System.out.println(epicDoubleHashMap3.howManyRepeatedFromAKey(70));
+        epicDoubleHashMap3.addBothTypes(72, new Player("Player3"), new Weapon(5));
+        epicDoubleHashMap3.addBothTypes(73, new Player("Player3"), new Weapon(1));
+        System.out.println("Values repeated from key 70: " + epicDoubleHashMap3.howManyRepeatedFromAKey(70));
         //values repeated
-        System.out.println(epicDoubleHashMap3.valuesRepeated());
+        System.out.println(epicDoubleHashMap3.valuesRepeated() ? "There are values repeated" :
+                "There are not values repeated");
+        System.out.println(new EpicDoubleHashMap<Integer, Object, Object>());
     }
 }

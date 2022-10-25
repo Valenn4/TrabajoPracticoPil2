@@ -11,8 +11,11 @@ public class Enemy {
         return damage;
     }
 
-    public boolean equals(Enemy enemy){
-        return this.damage == enemy.getDamage();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Enemy enemy)) return false;
+        return getDamage() == enemy.getDamage();
     }
 
     @Override

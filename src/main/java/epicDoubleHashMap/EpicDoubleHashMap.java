@@ -13,7 +13,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
 
     //methods
 
-    public int howManyFirstType(V value){
+    private int howManyFirstType(V value){
         int count = 0;
         for(Map.Entry<K, V> entry : mapV.entrySet()) {
             if (entry.getValue().equals(value) && !mapT.containsKey(entry.getKey())){
@@ -23,7 +23,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return count;
     }
 
-    public int howManySecondType(T value){
+    private int howManySecondType(T value){
         int count = 0;
         for(Map.Entry<K, T> entry : mapT.entrySet()) {
             if (entry.getValue().equals(value) && !mapV.containsKey(entry.getKey())){
@@ -33,7 +33,7 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
         return count;
     }
 
-    public int howManyBothTypes(V valueV, T valueT){
+    private int howManyBothTypes(V valueV, T valueT){
         int count = 0;
         for(Map.Entry<K, V> entry : mapV.entrySet()) {
             if(mapV.containsKey(entry.getKey()) && mapT.containsKey(entry.getKey()) &&
@@ -200,9 +200,27 @@ public class EpicDoubleHashMap <K extends Number, V, T> {
     //toString
     @Override
     public String toString() {
-        return "Values{" +
-                "mapV=" + mapV +
-                ", mapT=" + mapT +
-                '}';
+        Set<K> mergedKeys = new TreeSet<>();
+        mergedKeys.addAll(mapV.keySet());
+        mergedKeys.addAll(mapT.keySet());
+
+        String string = "Values: {\n";
+        if (mergedKeys.size() == 0){
+            string += "No values\n}";
+        } else {
+            for (K key: mergedKeys) {
+                string += "[Key: " + key;
+                if (mapV.containsKey(key)){
+                    string += " | V value: " + mapV.get(key);
+                }
+                if (mapT.containsKey(key)){
+                    string += " | T value: " + mapV.get(key);
+                }
+                string += " ];\n";
+            }
+            string+= " }";
+        }
+
+        return string;
     }
 }
